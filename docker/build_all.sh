@@ -2,7 +2,7 @@
 
 VERSION="${1:-v0.5.11-oracle}"
 
-pushd .. 
+pushd ..
 
 git checkout $VERSION
 docker build -t terramoney/core:$VERSION .
@@ -12,3 +12,4 @@ popd
 
 docker build --build-arg version=$VERSION --build-arg chainid=columbus-5 -t terramoney/core-node:$VERSION .
 docker build --build-arg version=$VERSION --build-arg chainid=bombay-12 -t terramoney/core-node:$VERSION-testnet .
+docker build --build-arg version=$VERSION --build-arg chainid=localterra -t terramoney/core-node:$VERSION-localterra .

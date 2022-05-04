@@ -1,4 +1,4 @@
-ARG version=v0.5.9-oracle
+ARG version=v0.5.18-fh
 
 FROM terramoney/core:${version}
 
@@ -18,6 +18,9 @@ RUN if [ "$chainid" = "columbus-5" ] ; then wget -O ~/.terra/config/addrbook.jso
 
 RUN if [ "$chainid" = "bombay-12" ] ; then wget -O ~/.terra/config/genesis.json https://raw.githubusercontent.com/terra-money/testnet/master/bombay-12/genesis.json; fi
 RUN if [ "$chainid" = "bombay-12" ] ; then wget -O ~/.terra/config/addrbook.json https://raw.githubusercontent.com/terra-money/testnet/master/bombay-12/addrbook.json; fi
+
+RUN if [ "$chainid" = "localterra" ] ; then wget -O ~/.terra/config/genesis.json https://raw.githubusercontent.com/adairrr/LocalTerra/main/config/genesis.json; fi
+RUN if [ "$chainid" = "localterra" ] ; then wget -O ~/.terra/config/addrbook.json https://raw.githubusercontent.com/adairrr/LocalTerra/main/config/addrbook.json; fi
 
 RUN apk update && apk add wget lz4 aria2 curl jq gawk coreutils
 

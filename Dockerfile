@@ -22,8 +22,12 @@ COPY . /code/
 RUN git clone --depth 1 https://github.com/microsoft/mimalloc; cd mimalloc; mkdir build; cd build; cmake ..; make -j$(nproc); make install
 ENV MIMALLOC_RESERVE_HUGE_OS_PAGES=4
 
+# From https://github.com/CosmWasm/wasmd/blob/master/Dockerfile
+# For more details see https://github.com/CosmWasm/wasmvm#builds-of-libwasmvm
+ARG arch=x86_64
+
 # See https://github.com/CosmWasm/wasmvm/releases
-ADD https://github.com/CosmWasm/wasmvm/releases/download/v${LIBWASMVM_VERSION}/libwasmvm_muslc.x86_64.a /lib/libwasmvm_muslc.a
+ADD https://github.com/CosmWasm/wasmvm/releases/download/v${LIBWASMVM_VERSION}/libwasmvm_muslc.${arch}.a /lib/libwasmvm_muslc.a
 RUN sha256sum /lib/libwasmvm_muslc.a | grep ${LIBWASMVM_SHA256}
 
 # force it to use static lib (from above) not standard libgo_cosmwasm.so file
